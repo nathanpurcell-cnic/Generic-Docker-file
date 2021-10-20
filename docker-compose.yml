@@ -7,7 +7,7 @@ services:
   site:
     build:
       context: .
-      dockerfile: nginx.dockerfile
+      dockerfile: nginx/nginx.dockerfile
       args:
         - NGINXUSER=${NGINXUSER:-www-data}
         - NGINXGROUP=${NGINXGROUP:-www-data}
@@ -20,7 +20,6 @@ services:
       - php
       - redis
       - mysql
-      - mailhog
     networks:
       - laravel
 
@@ -40,17 +39,20 @@ services:
       SERVICE_NAME: mysql
     networks:
       - laravel
+    volumes:
+      - ./data/mysql:/var/lib/mysql
 
   php:
     build:
       context: .
-      dockerfile: php.dockerfile
+      dockerfile: php/php.dockerfile
       args:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
     container_name: php
     volumes:
       - ./src:/var/www/html:delegated
+      - ./php/custom.ini:/usr/local/etc/php/conf.d/php-custom.ini
     networks:
       - laravel
 
@@ -66,7 +68,7 @@ services:
   composer:
     build:
       context: .
-      dockerfile: composer.dockerfile
+      dockerfile: composer/composer.dockerfile
       args:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
@@ -97,7 +99,7 @@ services:
   artisan:
     build:
       context: .
-      dockerfile: php.dockerfile
+      dockerfile: php/php.dockerfile
       args:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
@@ -108,14 +110,5 @@ services:
       - mysql
     working_dir: /var/www/html
     entrypoint: ['php', '/var/www/html/artisan']
-    networks:
-      - laravel
-
-  mailhog:
-    image: mailhog/mailhog:latest
-    container_name: mailhog
-    ports:
-      - 1025:1025
-      - 8025:8025
     networks:
       - laravel
