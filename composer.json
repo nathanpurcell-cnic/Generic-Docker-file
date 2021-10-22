@@ -1,0 +1,10 @@
+{
+    "name": "centralnic/docker-php",
+    "description": "Basic PHP Docker Container",
+    "authors": [
+        {
+            "name": "Nathan Purcell",
+            "email": "nathan.purcell@centralnic.com"
+        }
+    ],
+}
