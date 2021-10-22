@@ -7,7 +7,7 @@ services:
   site:
     build:
       context: .
-      dockerfile: nginx/nginx.dockerfile
+      dockerfile: .docker/nginx/nginx.dockerfile
       args:
         - NGINXUSER=${NGINXUSER:-www-data}
         - NGINXGROUP=${NGINXGROUP:-www-data}
@@ -40,19 +40,19 @@ services:
     networks:
       - laravel
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - ./.docker/data/mysql:/var/lib/mysql
 
   php:
     build:
       context: .
-      dockerfile: php/php.dockerfile
+      dockerfile: .docker/php/php.dockerfile
       args:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
     container_name: php
     volumes:
       - ./src:/var/www/html:delegated
-      - ./php/custom.ini:/usr/local/etc/php/conf.d/php-custom.ini
+      - ./.docker/php/custom.ini:/usr/local/etc/php/conf.d/php-custom.ini
     networks:
       - laravel
 
@@ -68,7 +68,7 @@ services:
   composer:
     build:
       context: .
-      dockerfile: composer/composer.dockerfile
+      dockerfile: .docker/composer/composer.dockerfile
       args:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
@@ -99,7 +99,7 @@ services:
   artisan:
     build:
       context: .
-      dockerfile: php/php.dockerfile
+      dockerfile: .docker/php/php.dockerfile
       args:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
