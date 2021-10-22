@@ -15,7 +15,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./project:/var/www/html:delegated
     depends_on:
       - php
       - redis
@@ -51,7 +51,7 @@ services:
         - PHPGROUP=${PHPGROUP:-www-data}
     container_name: php
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./project:/var/www/html:delegated
       - ./.docker/php/custom.ini:/usr/local/etc/php/conf.d/php-custom.ini
     networks:
       - laravel
@@ -74,7 +74,7 @@ services:
         - PHPGROUP=${PHPGROUP:-www-data}
     container_name: composer
     volumes:
-      - ./src:/var/www/html
+      - ./project:/var/www/html
     working_dir: /var/www/html
     depends_on:
       - php
@@ -87,7 +87,7 @@ services:
     image: node:13.7
     container_name: npm
     volumes:
-      - ./src:/var/www/html
+      - ./project:/var/www/html
     ports:
       - 3000:3000
       - 3001:3001
@@ -105,7 +105,7 @@ services:
         - PHPGROUP=${PHPGROUP:-www-data}
     container_name: artisan
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./project:/var/www/html:delegated
     depends_on:
       - mysql
     working_dir: /var/www/html
