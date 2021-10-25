@@ -3,6 +3,19 @@
 
 Original repository: https://github.com/aschmelyun/docker-compose-laravel
 
+## How to use
+
+Download the repo into your project directory using the following command: 
+
+```bash
+curl https://gitlab.com/nathanpurcell-cnic/generic-php-dockerfile/-/archive/main/generic-php-dockerfile-main.zip -O --header "PRIVATE-TOKEN: XXX"
+```
+
+Set and configure the following environment variables in your `.env` file: 
+
+**NP - TODO!** 
+
+
 
 ## Commands
 
