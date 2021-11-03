@@ -13,7 +13,15 @@ curl https://gitlab.com/nathanpurcell-cnic/generic-php-dockerfile/-/blob/main/do
 
 Set and configure the following environment variables in your `.env` file: 
 
-**NP - TODO!** 
+```bash
+NGINXGROUP=www-data
+NGINXUSER=www-data
+PHPGROUP=www-data
+PHPUSER=www-data
+COMPOSE_PROJECT_NAME=purcell_docker
+DOCKER_PROJECT_DIRECTORY="./project"
+PUBLIC_DIR="public"
+```
 
 
 
@@ -36,28 +44,28 @@ docker-composer up -d --build
 **Run a command in the Composer container**
 
 ```bash
-docker-composer up run --rm composer [COMMAND]
+docker-composer run --rm composer [COMMAND]
 ```
 <br />
 
 **Run a command in the Artisan container**
 
 ```bash
-docker-composer up run --rm artisan [COMMAND]
+docker-composer run --rm artisan [COMMAND]
 ```
 <br />
 
 **Run a command in the NPM container**
 
 ```bash
-docker-composer up run --rm npm [COMMAND]
+docker-composer run --rm npm [COMMAND]
 ```
 <br />
 
 **Run a command in the PHP container**
 
 ```bash
-docker-composer up run --rm php [COMMAND]
+docker-composer run --rm php [COMMAND]
 ```
 <br />
 
