@@ -23,6 +23,8 @@ DOCKER_PROJECT_DIRECTORY="./project"
 PUBLIC_DIR="public"
 ```
 
+### Recommendations
+We recommend adding `.docker/data` to your project's `.gitignore` file. 
 
 
 ## Commands

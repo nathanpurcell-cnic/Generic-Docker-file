@@ -13,7 +13,7 @@ services:
         - NGINXGROUP=${NGINXGROUP:-www-data}
     environment:
       - PUBLIC_DIR=${PUBLIC_DIR:-public}
-    container_name: nginx
+    container_name: nginx-${COMPOSE_PROJECT_NAME}
     ports:
       - 80:80
     volumes:
@@ -28,7 +28,7 @@ services:
 
   mysql:
     image: mariadb:10.6
-    container_name: mysql
+    container_name: mysql-${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
     tty: true
     ports:
@@ -52,7 +52,7 @@ services:
       args:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
-    container_name: php
+    container_name: php-${COMPOSE_PROJECT_NAME}
     volumes:
       - ${DOCKER_PROJECT_DIRECTORY:-./project}:/var/www/html:delegated
       - ./.docker/php/custom.ini:/usr/local/etc/php/conf.d/php-custom.ini
@@ -61,7 +61,7 @@ services:
 
   redis:
     image: redis:alpine
-    container_name: redis
+    container_name: redis-${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
     ports:
       - 6379:6379
@@ -75,7 +75,7 @@ services:
       args:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
-    container_name: composer
+    container_name: composer-${COMPOSE_PROJECT_NAME}
     volumes:
       - ${DOCKER_PROJECT_DIRECTORY:-./project}:/var/www/html
     working_dir: /var/www/html
@@ -88,7 +88,7 @@ services:
 
   npm:
     image: node:13.7
-    container_name: npm
+    container_name: npm-${COMPOSE_PROJECT_NAME}
     volumes:
       - ${DOCKER_PROJECT_DIRECTORY:-./project}:/var/www/html
     ports:
@@ -106,7 +106,7 @@ services:
       args:
         - PHPUSER=${PHPUSER:-www-data}
         - PHPGROUP=${PHPGROUP:-www-data}
-    container_name: artisan
+    container_name: artisan-${COMPOSE_PROJECT_NAME}
     volumes:
       - ${DOCKER_PROJECT_DIRECTORY:-./project}:/var/www/html:delegated
     depends_on:
