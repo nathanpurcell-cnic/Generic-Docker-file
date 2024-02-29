@@ -6,6 +6,7 @@ ARG NGINXUSER
 ENV NGINXGROUP=${NGINXGROUP}
 ENV NGINXUSER=${NGINXUSER}
 
+# Replace "user www-data" with "user ${NGINXUSER}" in the default nginx config file. 
 RUN sed -i "s/user www-data/user ${NGINXUSER}/g" /etc/nginx/nginx.conf
 
 RUN mkdir -p /var/www/html

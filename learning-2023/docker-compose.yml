@@ -1,0 +1,42 @@
+
+services:
+  nginx:
+    restart: always
+    build:
+      context: .
+      dockerfile: nginx.dockerfile
+      args: {}
+    ports:
+      - "80:80"
+    networks:
+      - internal
+    volumes:
+      - ./data/:/var/www/html/
+      - ./logs/nginx:/var/log/nginx/
+      
+  php:
+    restart: always
+    build:
+      context: .
+      dockerfile: php.dockerfile
+      args: {}
+    environment: []
+    networks:
+      - internal
+    volumes:
+      - ./data/:/var/www/html/
+      - ./logs/php.log:/var/log/fpm-php.www.log
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    platform: linux/amd64
+    environment:
+      PMA_HOST: host.docker.internal
+      MYSQL_ROOT_PASSWORD: ''
+    ports:
+      - "8080:80"
+    profiles: ['development']
+
+networks:
+  internal:
+    driver: bridge
